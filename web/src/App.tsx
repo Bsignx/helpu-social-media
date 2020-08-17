@@ -1,11 +1,13 @@
 import React from 'react';
 
+import Routes from './pages/Routes';
+
 import './styles/global.scss';
 
 const App: React.FC = () => {
   return (
     <div className="App">
-      <h1>Hello</h1>
+      <Routes />
     </div>
   );
 };
