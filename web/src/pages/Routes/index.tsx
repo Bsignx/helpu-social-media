@@ -10,8 +10,8 @@ import theme from '../../styles/theme';
 
 const Routes: React.FC = () => {
   return (
-    <BrowserRouter>
-      <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
         <Navbar />
         <div className="container">
           <Switch>
@@ -20,8 +20,8 @@ const Routes: React.FC = () => {
             <Route exact path="/signup" component={Signup} />
           </Switch>
         </div>
-      </ThemeProvider>
-    </BrowserRouter>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 };
 
