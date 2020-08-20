@@ -23,7 +23,6 @@ const Home: React.FC = () => {
     api
       .get('posts')
       .then(res => {
-        console.log(res.data);
         setPosts(res.data);
       })
       .catch(err => {

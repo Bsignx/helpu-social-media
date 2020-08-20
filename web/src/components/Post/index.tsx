@@ -1,7 +1,10 @@
 import React from 'react';
 import { WithStyles, withStyles } from '@material-ui/styles';
 import { Card, CardMedia, CardContent, Typography } from '@material-ui/core';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 import { Link } from 'react-router-dom';
+
 import { PostProps } from '../../pages/Home';
 
 import styles from './styles';
@@ -22,7 +25,7 @@ const Post: React.FC<PostPropsComponent> = ({
   },
   classes,
 }) => {
-  console.log(userImage);
+  dayjs.extend(relativeTime);
   return (
     <Card className={classes.card}>
       <CardMedia
@@ -40,7 +43,7 @@ const Post: React.FC<PostPropsComponent> = ({
           {userHandle}
         </Typography>
         <Typography variant="body2" color="textSecondary">
-          {createdAt}
+          {dayjs(createdAt).fromNow()}
         </Typography>
         <Typography variant="body1">{body}</Typography>
       </CardContent>

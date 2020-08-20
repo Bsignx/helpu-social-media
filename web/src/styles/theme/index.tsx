@@ -1,6 +1,9 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 
 const theme = createMuiTheme({
+  typography: {
+    fontFamily: `"Ubuntu", "Helvetica", "Arial", sans-serif`,
+  },
   palette: {
     primary: {
       main: '#204051',
