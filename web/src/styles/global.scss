@@ -15,3 +15,34 @@ body {
 a {
   text-decoration: none;
 }
+
+.form {
+  text-align: center;
+}
+
+.logoImage {
+  width: 190px;
+  height: 190px;
+  margin: 20px auto !important;
+}
+
+.pageTitle {
+}
+.textField {
+  margin: 2.5px 0 !important;
+}
+
+.button {
+  margin: 20px auto !important;
+  position: relative !important;
+}
+
+.customError {
+  margin-top: 10px !important;
+  color: red;
+  font-size: 14px !important;
+}
+
+.progress {
+  position: absolute;
+}

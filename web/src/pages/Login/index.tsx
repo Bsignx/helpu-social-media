@@ -6,15 +6,13 @@ import {
   Button,
   CircularProgress,
 } from '@material-ui/core';
-import { WithStyles, withStyles } from '@material-ui/styles';
+
 import { useHistory, Link } from 'react-router-dom';
 
 import logoImage from '../../assets/logo.png';
 import api from '../../services/api';
 
-import styles from './styles';
-
-type LoginPropsComponent = WithStyles<typeof styles>;
+import './styles.scss';
 
 interface LoginState {
   email: string;
@@ -23,15 +21,13 @@ interface LoginState {
   errors: any;
 }
 
-const Login: React.FC<LoginPropsComponent> = ({ classes }) => {
+const Login: React.FC = () => {
   const [state, setState] = useState<LoginState>({
     email: '',
     password: '',
     loading: false,
     errors: {} as any,
   });
-
-  console.log(state);
 
   const history = useHistory();
 
@@ -47,6 +43,7 @@ const Login: React.FC<LoginPropsComponent> = ({ classes }) => {
       .post('/login', userData)
       .then(res => {
         console.log(res.data);
+        localStorage.setItem('FBIdToken', `Bearer ${res.data.token}`);
         setState({
           ...state,
           loading: false,
@@ -72,15 +69,11 @@ const Login: React.FC<LoginPropsComponent> = ({ classes }) => {
   }
 
   return (
-    <Grid container className={classes.form}>
+    <Grid container className="form">
       <Grid item sm />
       <Grid item sm>
-        <img src={logoImage} alt="Helpu" className={classes.logoImage} />
-        <Typography
-          variant="body2"
-          color="primary"
-          className={classes.pageTitle}
-        >
+        <img src={logoImage} alt="Helpu" className="logoImage" />
+        <Typography variant="body2" color="primary" className="pageTitle">
           Seu espaço de conhecimento compartilhado. Destinado a lhe ajudar
           aprimorar não só você, mas sim, todos nós.
         </Typography>
@@ -92,7 +85,7 @@ const Login: React.FC<LoginPropsComponent> = ({ classes }) => {
             label="E-mail"
             helperText={state.errors.email}
             error={!!state.errors.email}
-            className={classes.textField}
+            className="textField"
             value={state.email}
             onChange={handleChange}
             fullWidth
@@ -104,13 +97,13 @@ const Login: React.FC<LoginPropsComponent> = ({ classes }) => {
             label="Senha"
             helperText={state.errors.password}
             error={!!state.errors.password}
-            className={classes.textField}
+            className="textField"
             value={state.password}
             onChange={handleChange}
             fullWidth
           />
           {state.errors.general && (
-            <Typography variant="body2" className={classes.customError}>
+            <Typography variant="body2" className="customError">
               {state.errors.general}
             </Typography>
           )}
@@ -118,7 +111,7 @@ const Login: React.FC<LoginPropsComponent> = ({ classes }) => {
             type="submit"
             variant="contained"
             color="primary"
-            className={classes.button}
+            className="button"
             fullWidth
             disabled={state.loading}
           >
@@ -127,7 +120,7 @@ const Login: React.FC<LoginPropsComponent> = ({ classes }) => {
               <CircularProgress
                 size={30}
                 color="secondary"
-                className={classes.progress}
+                className="progress"
               />
             )}
           </Button>
@@ -142,4 +135,4 @@ const Login: React.FC<LoginPropsComponent> = ({ classes }) => {
   );
 };
 
-export default withStyles(styles)(Login);
+export default Login;
