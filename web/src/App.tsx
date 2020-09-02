@@ -1,4 +1,6 @@
 import React from 'react';
+import { Provider } from 'react-redux';
+import store from './redux/store';
 
 import Routes from './pages/Routes';
 
@@ -6,9 +8,9 @@ import './styles/global.scss';
 
 const App: React.FC = () => {
   return (
-    <div className="App">
+    <Provider store={store}>
       <Routes />
-    </div>
+    </Provider>
   );
 };
 

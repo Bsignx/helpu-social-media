@@ -6,26 +6,24 @@ import {
   Button,
   CircularProgress,
 } from '@material-ui/core';
-
 import { useHistory, Link } from 'react-router-dom';
+import { connect } from 'react-redux'
+import { loginUser } from '../../redux/actions/userActions'
 
 import logoImage from '../../assets/logo.png';
-import api from '../../services/api';
 
 import './styles.scss';
 
 interface LoginState {
   email: string;
   password: string;
-  loading: boolean;
   errors: any;
 }
 
-const Login: React.FC = () => {
+const Login: React.FC = ({ loginUser }: any) => {
   const [state, setState] = useState<LoginState>({
     email: '',
     password: '',
-    loading: false,
     errors: {} as any,
   });
 
@@ -33,32 +31,11 @@ const Login: React.FC = () => {
 
   function handleSubmit(e: FormEvent): void {
     e.preventDefault();
-    setState({ ...state, loading: true });
     const userData = {
       email: state.email,
       password: state.password,
     };
-
-    api
-      .post('/login', userData)
-      .then(res => {
-        console.log(res.data);
-        localStorage.setItem('FBIdToken', `Bearer ${res.data.token}`);
-        setState({
-          ...state,
-          loading: false,
-        });
-        history.push('/');
-      })
-      .catch(err => {
-        setState({
-          ...state,
-          errors: err.response.data.errors
-            ? err.response.data.errors
-            : err.response.data,
-          loading: false,
-        });
-      });
+    loginUser(userData, history);
   }
 
   function handleChange(e: ChangeEvent<HTMLInputElement>): void {

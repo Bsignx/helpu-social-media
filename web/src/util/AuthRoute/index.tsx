@@ -10,7 +10,6 @@ interface AuthProps {
 const AuthRoute: React.FC<AuthProps> = ({
   component: Component,
   authenticated,
-  path,
   ...rest
 }) => (
   <Route
