@@ -2,6 +2,9 @@ import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/core';
 import jwtDecode from 'jwt-decode';
+import { SET_AUTHENTICATED } from '../../redux/types';
+import { logoutUser, getUserData } from '../../redux/actions/userActions';
+import store from '../../redux/store'
 
 import Home from '../Home';
 import Login from '../Login';
@@ -10,16 +13,19 @@ import Navbar from '../../components/Navbar';
 
 import theme from '../../styles/theme';
 import AuthRoute from '../../util/AuthRoute';
+import api from '../../services/api';
 
 const token = localStorage.FBIdToken;
 let authenticated: boolean;
 if (token) {
   const decodedToken: any = jwtDecode(token);
   if (decodedToken.exp * 1000 < Date.now()) {
-    authenticated = false;
+    store.dispatch(logoutUser())
     window.location.href = '/login';
   } else {
-    authenticated = true;
+    store.dispatch({ type: SET_AUTHENTICATED });
+    api.defaults.headers.common['Authorization'] = token;
+    store.dispatch(getUserData());
   }
 }
 
@@ -34,12 +40,10 @@ const Routes: React.FC = () => {
             <AuthRoute
               path="/login"
               component={Login}
-              authenticated={authenticated}
             />
             <AuthRoute
               path="/signup"
               component={Signup}
-              authenticated={authenticated}
             />
           </Switch>
         </div>

@@ -29,7 +29,6 @@ const Login: React.FC = ({ loginUser, UI }: any) => {
 
   useEffect(() => {
     setState({ ...state, errors: UI.errors })
-    console.log(state)
   }, [UI.errors])
 
 
@@ -67,7 +66,7 @@ const Login: React.FC = ({ loginUser, UI }: any) => {
             type="email"
             label="E-mail"
             helperText={state.errors !== null ? state.errors.email : ''}
-            error={state.errors !== null && !!state.errors.email }
+            error={state.errors !== null && !!state.errors.email}
             className="textField"
             value={state.email}
             onChange={handleChange}

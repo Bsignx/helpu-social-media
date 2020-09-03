@@ -1,4 +1,4 @@
-import React, { FormEvent, useState, ChangeEvent } from 'react';
+import React, { FormEvent, useState, ChangeEvent, useEffect } from 'react';
 import {
   Grid,
   Typography,
@@ -7,53 +7,39 @@ import {
   CircularProgress,
 } from '@material-ui/core';
 import { useHistory, Link } from 'react-router-dom';
+import { connect } from 'react-redux'
+import { signupUser } from '../../redux/actions/userActions'
 
 import api from '../../services/api';
 
 import './styles.scss';
 
-const Signup: React.FC = () => {
+const Signup: React.FC = ({ signupUser, UI, user }: any) => {
   const [state, setState] = useState({
     email: '',
     password: '',
     confirmPassword: '',
     handle: '',
-    loading: false,
     errors: {} as any,
   });
+
+  useEffect(() => {
+    setState({ ...state, errors: UI.errors })
+  }, [UI.errors])
+
 
   const history = useHistory();
 
   function handleSubmit(e: FormEvent): void {
     e.preventDefault();
-    setState({ ...state, loading: true });
     const newUserData = {
       email: state.email,
       password: state.password,
       confirmPassword: state.confirmPassword,
       handle: state.handle,
     };
+    signupUser(newUserData, history);
 
-    api
-      .post('/signup', newUserData)
-      .then(res => {
-        console.log(res.data);
-        localStorage.setItem('FBIdToken', `Bearer ${res.data.userToken}`);
-        setState({
-          ...state,
-          loading: false,
-        });
-        history.push('/');
-      })
-      .catch(err => {
-        setState({
-          ...state,
-          errors: err.response.data.errors
-            ? err.response.data.errors
-            : err.response.data,
-          loading: false,
-        });
-      });
   }
 
   function handleChange(e: ChangeEvent<HTMLInputElement>): void {
@@ -76,8 +62,8 @@ const Signup: React.FC = () => {
             name="email"
             type="email"
             label="E-mail"
-            helperText={state.errors.email}
-            error={!!state.errors.email}
+            helperText={state.errors !== null ? state.errors.email : ''}
+            error={state.errors !== null && !!state.errors.email}
             className="textField"
             value={state.email}
             onChange={handleChange}
@@ -88,8 +74,8 @@ const Signup: React.FC = () => {
             name="password"
             type="password"
             label="Senha"
-            helperText={state.errors.password}
-            error={!!state.errors.password}
+            helperText={state.errors !== null ? state.errors.password : ''}
+            error={state.errors !== null && !!state.errors.password}
             className="textField"
             value={state.password}
             onChange={handleChange}
@@ -100,8 +86,8 @@ const Signup: React.FC = () => {
             name="confirmPassword"
             type="password"
             label="Digite a senha novamente"
-            helperText={state.errors.confirmPassword}
-            error={!!state.errors.confirmPassword}
+            helperText={state.errors !== null ? state.errors.confirmPassword : ''}
+            error={state.errors !== null && !!state.errors.confirmPassword}
             className="textField"
             value={state.confirmPassword}
             onChange={handleChange}
@@ -112,14 +98,14 @@ const Signup: React.FC = () => {
             name="handle"
             type="text"
             label="Apelido"
-            helperText={state.errors.handle}
-            error={!!state.errors.handle}
+            helperText={state.errors !== null ? state.errors.handle : ''}
+            error={state.errors !== null && !!state.errors.handle}
             className="textField"
             value={state.handle}
             onChange={handleChange}
             fullWidth
           />
-          {state.errors.general && (
+          {state.errors !== null && state.errors.general && (
             <Typography variant="body2" className="customError">
               {state.errors.general}
             </Typography>
@@ -130,10 +116,10 @@ const Signup: React.FC = () => {
             color="primary"
             className="button"
             fullWidth
-            disabled={state.loading}
+            disabled={UI.loading}
           >
             Salvar
-            {state.loading && (
+            {UI.loading && (
               <CircularProgress
                 size={30}
                 color="secondary"
@@ -152,4 +138,10 @@ const Signup: React.FC = () => {
   );
 };
 
-export default Signup;
+const mapStateToProps = (state: any) => ({
+  user: state.user,
+  UI: state.UI
+});
+
+
+export default connect(mapStateToProps, { signupUser })(Signup);
