@@ -1,4 +1,4 @@
-import React, { FormEvent, useState, ChangeEvent } from 'react';
+import React, { FormEvent, useState, ChangeEvent, useEffect } from 'react';
 import {
   Grid,
   Typography,
@@ -20,12 +20,18 @@ interface LoginState {
   errors: any;
 }
 
-const Login: React.FC = ({ loginUser }: any) => {
+const Login: React.FC = ({ loginUser, UI }: any) => {
   const [state, setState] = useState<LoginState>({
     email: '',
     password: '',
     errors: {} as any,
   });
+
+  useEffect(() => {
+    setState({ ...state, errors: UI.errors })
+    console.log(state)
+  }, [UI.errors])
+
 
   const history = useHistory();
 
@@ -60,8 +66,8 @@ const Login: React.FC = ({ loginUser }: any) => {
             name="email"
             type="email"
             label="E-mail"
-            helperText={state.errors.email}
-            error={!!state.errors.email}
+            helperText={state.errors !== null ? state.errors.email : ''}
+            error={state.errors !== null && !!state.errors.email }
             className="textField"
             value={state.email}
             onChange={handleChange}
@@ -72,14 +78,14 @@ const Login: React.FC = ({ loginUser }: any) => {
             name="password"
             type="password"
             label="Senha"
-            helperText={state.errors.password}
-            error={!!state.errors.password}
+            helperText={state.errors !== null ? state.errors.password : ''}
+            error={state.errors !== null && !!state.errors.password}
             className="textField"
             value={state.password}
             onChange={handleChange}
             fullWidth
           />
-          {state.errors.general && (
+          {state.errors !== null && state.errors.general && (
             <Typography variant="body2" className="customError">
               {state.errors.general}
             </Typography>
@@ -90,10 +96,10 @@ const Login: React.FC = ({ loginUser }: any) => {
             color="primary"
             className="button"
             fullWidth
-            disabled={state.loading}
+            disabled={UI.loading}
           >
             Entrar
-            {state.loading && (
+            {UI.loading && (
               <CircularProgress
                 size={30}
                 color="secondary"
@@ -112,4 +118,14 @@ const Login: React.FC = ({ loginUser }: any) => {
   );
 };
 
-export default Login;
+const mapStateToProps = (state: any) => ({
+  user: state.user,
+  UI: state.UI
+});
+
+const mapActionsToProps = {
+  loginUser
+};
+
+
+export default connect(mapStateToProps, mapActionsToProps)(Login);

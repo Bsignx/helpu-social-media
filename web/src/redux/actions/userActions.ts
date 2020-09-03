@@ -1,6 +1,5 @@
 import { SET_USER, CLEAR_ERRORS, LOADING_UI, SET_ERRORS } from '../types';
 import api from '../../services/api';
-import console from 'console';
 
 export const loginUser = (userData: any, history: any) => (dispatch: any) => {
   dispatch({ type: LOADING_UI });
@@ -16,7 +15,7 @@ export const loginUser = (userData: any, history: any) => (dispatch: any) => {
     })
     .catch(err => {
       dispatch({
-        SET_ERRORS,
+        type: SET_ERRORS,
         payload: err.response.data.errors
           ? err.response.data.errors
           : err.response.data,
@@ -26,7 +25,7 @@ export const loginUser = (userData: any, history: any) => (dispatch: any) => {
 
 export const getUserData = () => (dispatch: any) => {
   api
-    .get('/users')
+    .get('/user')
     .then(res => {
       dispatch({
         type: SET_USER,

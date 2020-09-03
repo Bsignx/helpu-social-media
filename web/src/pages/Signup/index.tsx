@@ -22,8 +22,6 @@ const Signup: React.FC = () => {
     errors: {} as any,
   });
 
-  console.log(state.errors);
-
   const history = useHistory();
 
   function handleSubmit(e: FormEvent): void {

@@ -1,9 +1,8 @@
-import {createStore, combineReducers, applyMiddleware, compose, combineReducers} from 'redux'
+import {createStore, applyMiddleware, compose, combineReducers} from 'redux'
 import thunk from 'redux-thunk'
-import { useReducer } from 'react'
 
 import userReducer from './reducers/userReducer'
-import dataReducer from './reducers/dataReducer';
+// import dataReducer from './reducers/dataReducer';
 import uiReducer from './reducers/uiReducer';
 
 declare global {
@@ -19,7 +18,7 @@ const middleware = [thunk]
 
 const reducers = combineReducers({
   user: userReducer,
-  data: dataReducer,
+  // data: dataReducer,
   UI: uiReducer,
 })
 
@@ -29,7 +28,7 @@ const store = createStore(
   reducers,
   initialState,
   compose(applyMiddleware(...middleware),
-  composeEnhancers|| compose && composeEnhancers() || compose
+  composeEnhancers && composeEnhancers()
 ))
 
 export default store
