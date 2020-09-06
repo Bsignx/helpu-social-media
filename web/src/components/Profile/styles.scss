@@ -1,0 +1,59 @@
+@import '../../styles/colors.scss';
+
+.paper {
+  padding: 20px !important;
+}
+.profile {
+
+  & .image-wrapper {
+    text-align: center;
+    position: relative;
+    & .button {
+      position: absolute;
+      top: 80%;
+      left: 70%;
+    }
+  }
+  & .profile-image {
+    width: 200px !important;
+    height: 200px !important;
+    object-fit: cover;
+    max-width: 100%;
+    border-radius: 50%;
+  }
+
+  & .profile-details {
+    text-align: center;
+    & span svg {
+      vertical-align: middle;
+    }
+    & a {
+      color: $primary;
+    }
+  }
+
+  & hr {
+    border: none;
+    margin: 0 0 10px 0;
+  }
+
+  & svg.button {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.buttons {
+  text-align: center;
+  & a {
+    margin: 20px 10px;
+  }
+}
+
+.detail-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+}

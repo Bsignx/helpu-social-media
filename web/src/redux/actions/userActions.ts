@@ -1,6 +1,32 @@
-import { SET_UNAUTHENTICATED } from './../types';
-import { SET_USER, CLEAR_ERRORS, LOADING_UI, SET_ERRORS } from '../types';
+import {
+  SET_UNAUTHENTICATED,
+  SET_USER,
+  CLEAR_ERRORS,
+  LOADING_UI,
+  SET_ERRORS,
+  LOADING_USER,
+} from '../types';
+
 import api from '../../services/api';
+
+const setAuthorizationHeader = (token: string): any => {
+  const FBIdToken = `Bearer ${token}`;
+  localStorage.setItem('FBIdToken', FBIdToken);
+  api.defaults.headers.common.Authorization = FBIdToken;
+};
+
+export const getUserData = () => (dispatch: any) => {
+  dispatch({ type: LOADING_USER });
+  api
+    .get('/user')
+    .then(res => {
+      dispatch({
+        type: SET_USER,
+        payload: res.data,
+      });
+    })
+    .catch(err => console.error(err));
+};
 
 export const loginUser = (userData: any, history: any) => (dispatch: any) => {
   dispatch({ type: LOADING_UI });
@@ -29,7 +55,7 @@ export const signupUser = (newUserData: any, history: any) => (
   api
     .post('/signup', newUserData)
     .then(res => {
-      console.log(res)
+      console.log(res);
       setAuthorizationHeader(res.data.userToken);
       dispatch(getUserData());
       dispatch({ type: CLEAR_ERRORS });
@@ -47,24 +73,6 @@ export const signupUser = (newUserData: any, history: any) => (
 
 export const logoutUser = () => (dispatch: any) => {
   localStorage.removeItem('FBidToken');
-  delete api.defaults.headers.common['Authorization'];
+  delete api.defaults.headers.common.Authorization;
   dispatch({ type: SET_UNAUTHENTICATED });
-};
-
-export const getUserData = () => (dispatch: any) => {
-  api
-    .get('/user')
-    .then(res => {
-      dispatch({
-        type: SET_USER,
-        payload: res.data,
-      });
-    })
-    .catch(err => console.error(err));
-};
-
-const setAuthorizationHeader = (token: string) => {
-  const FBIdToken = `Bearer ${token}`;
-  localStorage.setItem('FBIdToken', FBIdToken);
-  api.defaults.headers.common['Authorization'] = FBIdToken;
 };

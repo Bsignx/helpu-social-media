@@ -3,6 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import api from '../../services/api';
 
 import Post from '../../components/Post';
+import Profile from '../../components/Profile';
 
 import './styles.scss';
 
@@ -44,7 +45,7 @@ const Home: React.FC = () => {
         )}
       </Grid>
       <Grid item sm={4} xs={12}>
-        <p>Profile...</p>
+        <Profile />
       </Grid>
     </Grid>
   );
