@@ -76,3 +76,13 @@ export const logoutUser = () => (dispatch: any) => {
   delete api.defaults.headers.common.Authorization;
   dispatch({ type: SET_UNAUTHENTICATED });
 };
+
+export const uploadImage = (formData: any) => (dispatch: any) => {
+  dispatch({ type: LOADING_USER });
+  api
+    .post('/user/image', formData)
+    .then(() => {
+      dispatch(getUserData());
+    })
+    .catch(err => console.log(err));
+};

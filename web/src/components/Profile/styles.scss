@@ -7,11 +7,12 @@
 
   & .image-wrapper {
     text-align: center;
+    padding-left: 50px;
     position: relative;
     & .button {
       position: absolute;
-      top: 80%;
-      left: 70%;
+      top: -10px;
+      left: -25%;
     }
   }
   & .profile-image {
@@ -56,4 +57,8 @@
   align-items: center;
   justify-content: center;
   margin-bottom: 8px;
+}
+
+.tooltip {
+
 }

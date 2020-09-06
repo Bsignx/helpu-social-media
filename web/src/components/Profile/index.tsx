@@ -6,12 +6,16 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import MuiLink from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
+import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
 // Icons
 import LocationOn from '@material-ui/icons/LocationOn';
 import LinkIcon from '@material-ui/icons/Link';
 import CalendarToday from '@material-ui/icons/CalendarToday';
+import EditIcon from '@material-ui/icons/Edit';
 // Redux
 import { connect } from 'react-redux';
+import { logoutUser, uploadImage } from '../../redux/actions/userActions';
 
 import './styles.scss';
 
@@ -22,13 +26,37 @@ const Profile: React.FC = ({
     loading,
     authenticated,
   },
+  uploadImageProfile,
 }: any) => {
+  const handleImageChange = (event: any): void => {
+    const image: any = event.target.files[0];
+    const formData = new FormData();
+    formData.append('image', image, image.name);
+    uploadImageProfile(formData);
+  };
+
+  const handleEditPicture = (): any => {
+    const fileInput: any = document.getElementById('imageInput');
+    fileInput.click();
+  };
+
   const profileMarkup = !loading ? (
     authenticated ? (
       <Paper className="paper">
         <div className="profile">
           <div className="image-wrapper">
             <img src={imageUrl} alt="profile" className="profile-image" />
+            <input
+              type="file"
+              id="imageInput"
+              hidden
+              onChange={handleImageChange}
+            />
+            <Tooltip title="Trocar foto de perfil" className="tooltip">
+              <IconButton onClick={handleEditPicture} className="button">
+                <EditIcon color="primary" />
+              </IconButton>
+            </Tooltip>
           </div>
           <hr />
           <div className="profile-details">
@@ -105,4 +133,6 @@ const mapStateToProps = (state: any): any => ({
   user: state.user,
 });
 
-export default connect(mapStateToProps)(Profile);
+const mapActionsToProps = { logoutUser, uploadImageProfile: uploadImage };
+
+export default connect(mapStateToProps, mapActionsToProps)(Profile);
