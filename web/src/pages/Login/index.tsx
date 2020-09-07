@@ -7,8 +7,8 @@ import {
   CircularProgress,
 } from '@material-ui/core';
 import { useHistory, Link } from 'react-router-dom';
-import { connect } from 'react-redux'
-import { loginUser } from '../../redux/actions/userActions'
+import { connect } from 'react-redux';
+import { loginUser } from '../../redux/actions/userActions';
 
 import logoImage from '../../assets/logo.png';
 
@@ -28,9 +28,8 @@ const Login: React.FC = ({ loginUser, UI }: any) => {
   });
 
   useEffect(() => {
-    setState({ ...state, errors: UI.errors })
-  }, [UI.errors])
-
+    setState({ ...state, errors: UI.errors });
+  }, [UI.errors]);
 
   const history = useHistory();
 
@@ -117,14 +116,13 @@ const Login: React.FC = ({ loginUser, UI }: any) => {
   );
 };
 
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: any): any => ({
   user: state.user,
-  UI: state.UI
+  UI: state.UI,
 });
 
 const mapActionsToProps = {
-  loginUser
+  loginUser,
 };
-
 
 export default connect(mapStateToProps, mapActionsToProps)(Login);

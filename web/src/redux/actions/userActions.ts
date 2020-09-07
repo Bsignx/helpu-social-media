@@ -48,6 +48,16 @@ export const loginUser = (userData: any, history: any) => (dispatch: any) => {
     });
 };
 
+export const editUserDetails = (userDetails: any) => (dispatch: any) => {
+  dispatch({ type: LOADING_USER });
+  api
+    .post('/user', userDetails)
+    .then(() => {
+      dispatch(getUserData());
+    })
+    .catch(err => console.log(err));
+};
+
 export const signupUser = (newUserData: any, history: any) => (
   dispatch: any,
 ) => {

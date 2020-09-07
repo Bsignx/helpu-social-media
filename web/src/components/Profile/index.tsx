@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 // MUI stuff
@@ -12,21 +12,24 @@ import Tooltip from '@material-ui/core/Tooltip';
 import LocationOn from '@material-ui/icons/LocationOn';
 import LinkIcon from '@material-ui/icons/Link';
 import CalendarToday from '@material-ui/icons/CalendarToday';
+import KeyboardReturn from '@material-ui/icons/KeyboardReturn';
 import EditIcon from '@material-ui/icons/Edit';
 // Redux
 import { connect } from 'react-redux';
+
 import { logoutUser, uploadImage } from '../../redux/actions/userActions';
+import EditDetails from '../EditDetails';
 
 import './styles.scss';
 
 const Profile: React.FC = ({
-  classes,
   user: {
     credentials: { handle, createdAt, imageUrl, bio, website, location },
     loading,
     authenticated,
   },
   uploadImageProfile,
+  logoutUserProfile,
 }: any) => {
   const handleImageChange = (event: any): void => {
     const image: any = event.target.files[0];
@@ -38,6 +41,10 @@ const Profile: React.FC = ({
   const handleEditPicture = (): any => {
     const fileInput: any = document.getElementById('imageInput');
     fileInput.click();
+  };
+
+  const handleLogout = (): void => {
+    logoutUserProfile();
   };
 
   const profileMarkup = !loading ? (
@@ -94,6 +101,14 @@ const Profile: React.FC = ({
                 {`Se juntou em ${dayjs(createdAt).format('MM/YYYY')}`}
               </span>
             </div>
+            <div className="buttons-wrapper">
+              <Tooltip title="Logout" placement="top">
+                <IconButton onClick={handleLogout}>
+                  <KeyboardReturn color="primary" />
+                </IconButton>
+              </Tooltip>
+              <EditDetails />
+            </div>
           </div>
         </div>
       </Paper>
@@ -133,6 +148,9 @@ const mapStateToProps = (state: any): any => ({
   user: state.user,
 });
 
-const mapActionsToProps = { logoutUser, uploadImageProfile: uploadImage };
+const mapActionsToProps = {
+  logoutUserProfile: logoutUser,
+  uploadImageProfile: uploadImage,
+};
 
 export default connect(mapStateToProps, mapActionsToProps)(Profile);

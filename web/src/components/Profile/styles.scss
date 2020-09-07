@@ -10,6 +10,7 @@
     padding-left: 50px;
     position: relative;
     & .button {
+      background-color: #ddd;
       position: absolute;
       top: -10px;
       left: -25%;
@@ -59,6 +60,8 @@
   margin-bottom: 8px;
 }
 
-.tooltip {
-
+.buttons-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
