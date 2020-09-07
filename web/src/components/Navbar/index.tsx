@@ -5,24 +5,54 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 
+import { connect } from 'react-redux';
+
+// Icons
+import AddIcon from '@material-ui/icons/Add';
+import HomeIcon from '@material-ui/icons/Home';
+import Notifications from '@material-ui/icons/Notifications';
+import MyButton from '../../util/MyButton';
+
 import './styles.scss';
 
-const Navbar: React.FC = () => {
+const Navbar: React.FC = ({ authenticated }: any) => {
   return (
     <AppBar color="primary">
       <Toolbar className="nav-container">
-        <Button color="inherit" component={Link} to="/login">
-          Entrar
-        </Button>
-        <Button color="inherit" component={Link} to="/">
-          Home
-        </Button>
-        <Button color="inherit" component={Link} to="/signup">
-          Registrar
-        </Button>
+        {authenticated ? (
+          <>
+            <MyButton tip="Criar novo post">
+              <AddIcon />
+            </MyButton>
+            <Link to="/">
+              <MyButton tip="Home">
+                <HomeIcon />
+              </MyButton>
+            </Link>
+            <MyButton tip="Notificações">
+              <Notifications />
+            </MyButton>
+          </>
+        ) : (
+          <>
+            <Button color="inherit" component={Link} to="/login">
+              Entrar
+            </Button>
+            <Button color="inherit" component={Link} to="/">
+              Home
+            </Button>
+            <Button color="inherit" component={Link} to="/signup">
+              Registrar
+            </Button>
+          </>
+        )}
       </Toolbar>
     </AppBar>
   );
 };
 
-export default Navbar;
+const mapStateToProps = (state: any): any => ({
+  authenticated: state.user.authenticated,
+});
+
+export default connect(mapStateToProps)(Navbar);

@@ -9,10 +9,9 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import Tooltip from '@material-ui/core/Tooltip';
-import IconButton from '@material-ui/core/IconButton';
 // Icons
 import EditIcon from '@material-ui/icons/Edit';
+import MyButton from '../../util/MyButton';
 import { editUserDetails } from '../../redux/actions/userActions';
 
 import './styles.scss';
@@ -64,13 +63,15 @@ const EditDetails: React.FC = ({ credentials, editUserDetails }: any) => {
 
   return (
     <>
-      <Tooltip title="Edit details" placement="top">
-        <IconButton onClick={handleOpen} className="icon-button">
-          <EditIcon color="primary" />
-        </IconButton>
-      </Tooltip>
+      <MyButton
+        tip="Editar detalhes"
+        onClick={handleOpen}
+        btnClassName="icon-button"
+      >
+        <EditIcon color="primary" />
+      </MyButton>
       <Dialog open={state.open} onClose={handleClose} fullWidth maxWidth="sm">
-        <DialogTitle>Edit your details</DialogTitle>
+        <DialogTitle>Edite seus detalhes</DialogTitle>
         <DialogContent>
           <form>
             <TextField
