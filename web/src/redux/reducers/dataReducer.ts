@@ -1,4 +1,4 @@
-import { DELETE_POST } from './../types';
+import { DELETE_POST, POST_POST } from './../types';
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-case-declarations */
 import { SET_POSTS, LIKE_POST, UNLIKE_POST, LOADING_DATA } from '../types';
@@ -38,6 +38,11 @@ export default function (state = initialState, action: any): any {
       state.posts.splice(findIndex, 1);
       return {
         ...state,
+      };
+    case POST_POST:
+      return {
+        ...state,
+        posts: [action.payload, ...state.posts],
       };
     default:
       return state;

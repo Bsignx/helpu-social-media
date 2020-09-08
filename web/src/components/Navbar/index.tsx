@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
-
+import PostPost from '../PostPost';
 import { connect } from 'react-redux';
 
 // Icons
@@ -21,9 +21,7 @@ const Navbar: React.FC = ({ authenticated }: any) => {
       <Toolbar className="nav-container">
         {authenticated ? (
           <>
-            <MyButton tip="Criar novo post">
-              <AddIcon />
-            </MyButton>
+            <PostPost />
             <Link to="/">
               <MyButton tip="Home">
                 <HomeIcon />
