@@ -10,6 +10,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 import { connect } from 'react-redux';
 import { PostProps } from '../../pages/Home';
+import DeletePost from '.././DeletePost';
 import MyButton from '../../util/MyButton';
 import { likePost, unlikePost } from '../../redux/actions/dataActions';
 
@@ -30,7 +31,7 @@ const Post: React.FC<PostPropsComponent> = ({
     commentCount,
   },
   classes,
-  user: { authenticated, likes },
+  user: { authenticated, likes, credentials: { handle } },
   likePost,
   unlikePost,
 }: any) => {
@@ -54,7 +55,7 @@ const Post: React.FC<PostPropsComponent> = ({
   const likeButton = !authenticated ? (
     <MyButton tip="Like">
       <Link to="/login">
-        <FavoriteBorder color="primary"/>
+        <FavoriteBorder color="primary" />
       </Link>
     </MyButton>
   ) : likedPost() ? (
@@ -66,6 +67,11 @@ const Post: React.FC<PostPropsComponent> = ({
           <FavoriteBorder color="primary" />
         </MyButton>
       );
+
+  const deleteButton =
+    authenticated && userHandle === handle ? (
+      <DeletePost postId={postId} />
+    ) : null;
 
   return (
     <Card className={classes.card}>
@@ -87,12 +93,12 @@ const Post: React.FC<PostPropsComponent> = ({
           {dayjs(createdAt).fromNow()}
         </Typography>
         <Typography variant="body1">{body}</Typography>
-          {likeButton}
-          <span>{likeCount} Likes</span>
-          <MyButton tip="comments">
-            <ChatIcon color="primary" />
-          </MyButton>
-          <span>{commentCount} comments</span>
+        {likeButton}
+        <span>{likeCount} Likes</span>
+        <MyButton tip="comments">
+          <ChatIcon color="primary" />
+        </MyButton>
+        <span>{commentCount} comments</span>
       </CardContent>
     </Card>
   );

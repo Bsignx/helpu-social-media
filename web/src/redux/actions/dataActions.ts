@@ -1,3 +1,4 @@
+import { DELETE_POST } from './../types';
 import { SET_POSTS, LOADING_DATA, LIKE_POST, UNLIKE_POST } from '../types';
 
 import api from '../../services/api';
@@ -43,6 +44,15 @@ export const unlikePost = (postId: string) => (dispatch: any) => {
         type: UNLIKE_POST,
         payload: res.data,
       });
+    })
+    .catch(err => console.log(err));
+};
+
+export const deletePost = (postId: any) => (dispatch: any) => {
+  api
+    .delete(`/posts/${postId}`)
+    .then(() => {
+      dispatch({ type: DELETE_POST, payload: postId });
     })
     .catch(err => console.log(err));
 };
