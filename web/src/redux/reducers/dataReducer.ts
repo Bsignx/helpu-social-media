@@ -24,7 +24,7 @@ export default function (state = initialState, action: any): any {
       };
     case LIKE_POST:
     case UNLIKE_POST:
-      let index = state.posts.findIndex(
+      const index = state.posts.findIndex(
         (post: any) => post.postId === action.payload.postId,
       );
       state.posts[index] = action.payload;
@@ -32,10 +32,10 @@ export default function (state = initialState, action: any): any {
         ...state,
       };
     case DELETE_POST:
-      index = state.posts.findIndex(
+      const findIndex = state.posts.findIndex(
         (post: any) => post.postId === action.payload,
       );
-      state.posts.splice(index, 1);
+      state.posts.splice(findIndex, 1);
       return {
         ...state,
       };

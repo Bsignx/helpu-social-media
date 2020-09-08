@@ -38,7 +38,7 @@ const DeletePost: React.FC<DeletePostProps> = ({ deletePost, postId }: any) => {
           onClick={handleOpen}
           btnClassName="deleteButton"
         >
-          <DeleteOutline color="secondary" />
+          <DeleteOutline color="primary" />
         </MyButton>
         <Dialog
           open={open}
