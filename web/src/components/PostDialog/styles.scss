@@ -9,10 +9,19 @@
   object-fit: cover !important;
 }
 .MuiGrid-spacing-xs-8 {
-    width: auto !important;
-    margin: 0 !important;
+  width: auto !important;
+  margin: 0 !important;
 }
 .closeButton {
   position: absolute !important;
   left: 90%;
+}
+.expandButton {
+  position: absolute !important;
+  left: 90%;
+}
+.spinnerDiv {
+  text-align: center !important;
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
