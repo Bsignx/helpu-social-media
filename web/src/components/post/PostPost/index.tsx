@@ -1,6 +1,4 @@
-import React, { Component, Fragment, useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import withStyles from '@material-ui/core/styles/withStyles';
+import React, { useState, useEffect } from 'react';
 // MUI Stuff
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -12,8 +10,8 @@ import AddIcon from '@material-ui/icons/Add';
 import CloseIcon from '@material-ui/icons/Close';
 // Redux stuff
 import { connect } from 'react-redux';
-import MyButton from '../../util/MyButton';
-import { postPost, clearErrors } from '../../redux/actions/dataActions';
+import MyButton from '../../../util/MyButton';
+import { postPost, clearErrors } from '../../../redux/actions/dataActions';
 
 import './styles.scss';
 

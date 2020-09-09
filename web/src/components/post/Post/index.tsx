@@ -7,9 +7,9 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import { Link } from 'react-router-dom';
 import ChatIcon from '@material-ui/icons/Chat';
 import { connect } from 'react-redux';
-import { PostProps } from '../../pages/Home';
+import { PostProps } from '../../../pages/Home';
 import DeletePost from '../DeletePost';
-import MyButton from '../../util/MyButton';
+import MyButton from '../../../util/MyButton';
 import PostDialog from '../PostDialog';
 import LikeButton from '../LikeButton';
 

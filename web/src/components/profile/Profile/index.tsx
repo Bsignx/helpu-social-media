@@ -17,7 +17,7 @@ import EditIcon from '@material-ui/icons/Edit';
 // Redux
 import { connect } from 'react-redux';
 
-import { logoutUser, uploadImage } from '../../redux/actions/userActions';
+import { logoutUser, uploadImage } from '../../../redux/actions/userActions';
 import EditDetails from '../EditDetails';
 
 import './styles.scss';

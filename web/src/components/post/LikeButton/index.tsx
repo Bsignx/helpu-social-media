@@ -6,8 +6,8 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 // REdux
 import { connect } from 'react-redux';
-import MyButton from '../../util/MyButton';
-import { likePost, unlikePost } from '../../redux/actions/dataActions';
+import MyButton from '../../../util/MyButton';
+import { likePost, unlikePost } from '../../../redux/actions/dataActions';
 
 type LikeButtonProps = {
   postId?: string;

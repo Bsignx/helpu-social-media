@@ -1,6 +1,6 @@
 const styles = {
   card: {
-    position: "relative" as "relative",
+    position: 'relative' as const,
     display: 'flex',
     marginBottom: 20,
   },
