@@ -16,6 +16,7 @@ import ChatIcon from '@material-ui/icons/Chat';
 import { connect } from 'react-redux';
 import LikeButton from '../LikeButton';
 import MyButton from '../../../util/MyButton';
+import Comments from '../Comments';
 import { getPost } from '../../../redux/actions/dataActions';
 
 import './styles.scss';
@@ -26,7 +27,15 @@ interface PostDialogProps {
 }
 
 const PostDialog: React.FC<PostDialogProps> = ({
-  post: { body, createdAt, likeCount, commentCount, userImage, userHandle },
+  post: {
+    body,
+    createdAt,
+    likeCount,
+    commentCount,
+    userImage,
+    userHandle,
+    comments,
+  },
   postId,
   UI: { loading },
   getPost,
@@ -71,6 +80,9 @@ const PostDialog: React.FC<PostDialogProps> = ({
         </MyButton>
         <span>{`${commentCount} commentários`}</span>
       </Grid>
+      {/* TODO: comment input */}
+      <hr className="visibleSeparator" />
+      <Comments comments={comments} />
     </Grid>
   );
   return (
