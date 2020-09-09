@@ -1,7 +1,14 @@
-import { DELETE_POST, POST_POST } from './../types';
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-case-declarations */
-import { SET_POSTS, LIKE_POST, UNLIKE_POST, LOADING_DATA } from '../types';
+import {
+  SET_POSTS,
+  LIKE_POST,
+  UNLIKE_POST,
+  LOADING_DATA,
+  DELETE_POST,
+  POST_POST,
+  SET_POST,
+} from '../types';
 
 const initialState = {
   posts: [] as any,
@@ -21,6 +28,11 @@ export default function (state = initialState, action: any): any {
         ...state,
         posts: action.payload,
         loading: false,
+      };
+    case SET_POST:
+      return {
+        ...state,
+        post: action.payload,
       };
     case LIKE_POST:
     case UNLIKE_POST:

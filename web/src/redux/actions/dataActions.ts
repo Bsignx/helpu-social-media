@@ -1,5 +1,16 @@
-import { DELETE_POST, LOADING_UI, POST_POST, CLEAR_ERRORS, SET_ERRORS } from './../types';
-import { SET_POSTS, LOADING_DATA, LIKE_POST, UNLIKE_POST } from '../types';
+import {
+  DELETE_POST,
+  LOADING_UI,
+  POST_POST,
+  CLEAR_ERRORS,
+  SET_ERRORS,
+  SET_POST,
+  STOP_LOADING_UI,
+  SET_POSTS,
+  LOADING_DATA,
+  LIKE_POST,
+  UNLIKE_POST,
+} from '../types';
 
 import api from '../../services/api';
 
@@ -20,6 +31,20 @@ export const getPosts = () => (dispatch: any) => {
         payload: [],
       });
     });
+};
+
+export const getPost = (postId: any) => (dispatch: any) => {
+  dispatch({ type: LOADING_UI });
+  api
+    .get(`/post/${postId}`)
+    .then(res => {
+      dispatch({
+        type: SET_POST,
+        payload: res.data,
+      });
+      dispatch({ type: STOP_LOADING_UI });
+    })
+    .catch(err => console.log(err));
 };
 
 export const postPost = (newPost: any) => (dispatch: any) => {
@@ -76,4 +101,8 @@ export const deletePost = (postId: any) => (dispatch: any) => {
       dispatch({ type: DELETE_POST, payload: postId });
     })
     .catch(err => console.log(err));
+};
+
+export const clearErrors = () => (dispatch: any) => {
+  dispatch({ type: CLEAR_ERRORS });
 };
