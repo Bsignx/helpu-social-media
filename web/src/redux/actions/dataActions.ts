@@ -1,4 +1,5 @@
 import {
+  SUBMIT_COMMENT,
   DELETE_POST,
   LOADING_UI,
   POST_POST,
@@ -13,6 +14,10 @@ import {
 } from '../types';
 
 import api from '../../services/api';
+
+export const clearErrors = () => (dispatch: any) => {
+  dispatch({ type: CLEAR_ERRORS });
+};
 
 // Get all posts
 export const getPosts = () => (dispatch: any) => {
@@ -56,7 +61,7 @@ export const postPost = (newPost: any) => (dispatch: any) => {
         type: POST_POST,
         payload: res.data,
       });
-      dispatch({ type: CLEAR_ERRORS });
+      dispatch(clearErrors());
     })
     .catch(err => {
       dispatch({
@@ -94,6 +99,29 @@ export const unlikePost = (postId: string) => (dispatch: any) => {
     .catch(err => console.log(err));
 };
 
+// Submit a comment
+export const submitComment = (postId: any, commentData: any) => (
+  dispatch: any,
+): any => {
+  api
+    .post(`/post/${postId}/comment`, commentData)
+    .then(res => {
+      dispatch({
+        type: SUBMIT_COMMENT,
+        payload: res.data,
+      });
+      dispatch(clearErrors());
+    })
+    .catch(err => {
+      dispatch({
+        type: SET_ERRORS,
+        payload: err.response.data.error
+          ? err.response.data.error
+          : err.response.data,
+      });
+    });
+};
+
 export const deletePost = (postId: any) => (dispatch: any) => {
   api
     .delete(`/posts/${postId}`)
@@ -101,8 +129,4 @@ export const deletePost = (postId: any) => (dispatch: any) => {
       dispatch({ type: DELETE_POST, payload: postId });
     })
     .catch(err => console.log(err));
-};
-
-export const clearErrors = () => (dispatch: any) => {
-  dispatch({ type: CLEAR_ERRORS });
 };

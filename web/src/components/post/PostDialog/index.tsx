@@ -17,7 +17,8 @@ import { connect } from 'react-redux';
 import LikeButton from '../LikeButton';
 import MyButton from '../../../util/MyButton';
 import Comments from '../Comments';
-import { getPost } from '../../../redux/actions/dataActions';
+import CommentForm from '../CommentForm';
+import { getPost, clearErrors } from '../../../redux/actions/dataActions';
 
 import './styles.scss';
 
@@ -39,6 +40,7 @@ const PostDialog: React.FC<PostDialogProps> = ({
   postId,
   UI: { loading },
   getPost,
+  clearErrors,
 }: any) => {
   const [open, setOpen] = useState(false);
   const handleOpen = (): void => {
@@ -47,6 +49,7 @@ const PostDialog: React.FC<PostDialogProps> = ({
   };
   const handleClose = (): void => {
     setOpen(false);
+    clearErrors();
   };
 
   const dialogMarkup = loading ? (
@@ -82,6 +85,7 @@ const PostDialog: React.FC<PostDialogProps> = ({
       </Grid>
       {/* TODO: comment input */}
       <hr className="visibleSeparator" />
+      <CommentForm postId={postId} />
       <Comments comments={comments} />
     </Grid>
   );
@@ -111,6 +115,7 @@ const mapStateToProps = (state: any): any => ({
 
 const mapActionsToProps = {
   getPost,
+  clearErrors,
 };
 
 export default connect(mapStateToProps, mapActionsToProps)(PostDialog);
