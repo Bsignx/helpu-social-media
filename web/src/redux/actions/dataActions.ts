@@ -38,6 +38,24 @@ export const getPosts = () => (dispatch: any) => {
     });
 };
 
+export const getUserData = (userHandle: any) => (dispatch: any): any => {
+  dispatch({ type: LOADING_DATA });
+  api
+    .get(`/user/${userHandle}`)
+    .then((res: any) => {
+      dispatch({
+        type: SET_POSTS,
+        payload: res.data.userData.posts,
+      });
+    })
+    .catch(() => {
+      dispatch({
+        type: SET_POSTS,
+        payload: null,
+      });
+    });
+};
+
 export const getPost = (postId: any) => (dispatch: any) => {
   dispatch({ type: LOADING_UI });
   api

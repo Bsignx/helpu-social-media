@@ -1,0 +1,32 @@
+@import "../../../styles//colors.scss";
+
+.paper {
+  padding: 20px !important;
+}
+.profile {
+  & .image-wrapper {
+    text-align: center !important;
+    position: relative !important;
+  }
+  & .profile-image {
+    width: 200px !important;
+    height: 200px !important;
+    object-fit: cover !important;
+    max-width: 100% !important;
+    border-radius: 50% !important;
+  }
+  & .profile-details {
+    text-align: center !important;
+    & span,
+    svg {
+      vertical-align: middle !important;
+    }
+    & a {
+      color: $primary !important;
+    }
+  }
+  & hr {
+    border: none !important;
+    margin: 0 0 10px 0 !important;
+  }
+}

@@ -10,6 +10,7 @@ import Home from '../Home';
 import Login from '../Login';
 import Signup from '../Signup';
 import Navbar from '../../components/layout/Navbar';
+import user from '../User';
 
 import theme from '../../styles/theme';
 import AuthRoute from '../../util/AuthRoute';
@@ -39,6 +40,7 @@ const Routes: React.FC = () => {
             <Route exact path="/" component={Home} />
             <AuthRoute path="/login" component={Login} />
             <AuthRoute path="/signup" component={Signup} />
+            <Route exact path="/users/:handle" component={user} />
           </Switch>
         </div>
       </BrowserRouter>
