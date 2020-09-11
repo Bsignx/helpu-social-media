@@ -17,6 +17,7 @@ import styles from './styles';
 
 interface PostPropsComponent extends WithStyles<typeof styles> {
   post: PostProps;
+  openDialog?: boolean;
 }
 
 const Post: React.FC<PostPropsComponent> = ({
@@ -30,13 +31,11 @@ const Post: React.FC<PostPropsComponent> = ({
     commentCount,
   },
   classes,
+  openDialog,
   user: {
     authenticated,
-    likes,
     credentials: { handle },
   },
-  likePost,
-  unlikePost,
 }: any) => {
   dayjs.extend(relativeTime);
 
@@ -72,7 +71,11 @@ const Post: React.FC<PostPropsComponent> = ({
           <ChatIcon color="primary" />
         </MyButton>
         <span>{`${commentCount} comments`}</span>
-        <PostDialog postId={postId} userHandle={userHandle} />
+        <PostDialog
+          postId={postId}
+          userHandle={userHandle}
+          openDialog={openDialog}
+        />
       </CardContent>
     </Card>
   );

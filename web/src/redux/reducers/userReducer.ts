@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-return-assign */
 import {
   SET_AUTHENTICATED,
   SET_USER,
@@ -5,6 +7,7 @@ import {
   LOADING_USER,
   LIKE_POST,
   UNLIKE_POST,
+  MARK_NOTIFICATIONS_READ,
 } from '../types';
 
 const initialState = {
@@ -52,6 +55,11 @@ export default function (state = initialState, action: any): any {
         likes: state.likes.filter(
           (like: any) => like.postId !== action.payload.postId,
         ),
+      };
+    case MARK_NOTIFICATIONS_READ:
+      state.notifications.forEach((not: any) => (not.read = true));
+      return {
+        ...state,
       };
     default:
       return state;

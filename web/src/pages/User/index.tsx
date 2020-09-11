@@ -10,9 +10,10 @@ import api from '../../services/api';
 
 const User: React.FC = ({ data, match, getUserData }: any) => {
   const [profile, setProfile] = useState(null);
-
+  const [postIdParam, setPostIdParam] = useState(null);
   useEffect(() => {
-    const { handle } = match.params;
+    const { handle, postId } = match.params;
+    if (postId) setPostIdParam(postId);
     getUserData(handle);
     api
       .get(`/user/${handle}`)
@@ -28,8 +29,14 @@ const User: React.FC = ({ data, match, getUserData }: any) => {
     <p>Loading data...</p>
   ) : posts === null ? (
     <p>No posts from this user</p>
-  ) : (
+  ) : !postIdParam ? (
     posts.map((post: any) => <Post key={post.createdAt} post={post} />)
+  ) : (
+    posts.map((post: any) => {
+      if (post.postId !== postIdParam)
+        return <Post key={post.postId} post={post} />;
+      return <Post key={post.postId} post={post} openDialog />;
+    })
   );
 
   return (

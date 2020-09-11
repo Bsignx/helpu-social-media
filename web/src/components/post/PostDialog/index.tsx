@@ -1,5 +1,5 @@
 /* eslint-disable no-shadow */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
 // MUI Stuff
@@ -25,6 +25,7 @@ import './styles.scss';
 interface PostDialogProps {
   postId?: string;
   userHandle?: string;
+  openDialog?: boolean;
 }
 
 const PostDialog: React.FC<PostDialogProps> = ({
@@ -41,13 +42,34 @@ const PostDialog: React.FC<PostDialogProps> = ({
   UI: { loading },
   getPost,
   clearErrors,
+  openDialog,
 }: any) => {
   const [open, setOpen] = useState(false);
+  const [oldpath, setOldpath] = useState('');
+  const [newPath, setNewPath] = useState('');
+
   const handleOpen = (): void => {
+    let oldPath = window.location.pathname;
+
+    const newPath = `/users/${userHandle}/post/${postId}`;
+
+    if (oldPath === newPath) oldPath = `/users/${userHandle}`;
+
+    window.history.pushState(null, '', newPath);
+
     setOpen(true);
+    setOldpath(oldpath);
     getPost(postId);
   };
+
+  useEffect(() => {
+    if (openDialog) {
+      handleOpen();
+    }
+  }, []);
+
   const handleClose = (): void => {
+    window.history.pushState(null, '', oldpath);
     setOpen(false);
     clearErrors();
   };

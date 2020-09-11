@@ -7,10 +7,9 @@ import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 
 // Icons
-import AddIcon from '@material-ui/icons/Add';
 import HomeIcon from '@material-ui/icons/Home';
-import Notifications from '@material-ui/icons/Notifications';
 import PostPost from '../../post/PostPost';
+import Notifications from '../Notifications';
 import MyButton from '../../../util/MyButton';
 
 import './styles.scss';
@@ -27,9 +26,7 @@ const Navbar: React.FC = ({ authenticated }: any) => {
                 <HomeIcon />
               </MyButton>
             </Link>
-            <MyButton tip="Notificações">
-              <Notifications />
-            </MyButton>
+            <Notifications />
           </>
         ) : (
           <>

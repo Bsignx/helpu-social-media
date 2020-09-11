@@ -5,6 +5,7 @@ import {
   LOADING_UI,
   SET_ERRORS,
   LOADING_USER,
+  MARK_NOTIFICATIONS_READ,
 } from '../types';
 
 import api from '../../services/api';
@@ -93,6 +94,19 @@ export const uploadImage = (formData: any) => (dispatch: any) => {
     .post('/user/image', formData)
     .then(() => {
       dispatch(getUserData());
+    })
+    .catch(err => console.log(err));
+};
+
+export const markNotificationsRead = (notificationIds: any) => (
+  dispatch: any,
+) => {
+  api
+    .post('/notifications', notificationIds)
+    .then((res: any) => {
+      dispatch({
+        type: MARK_NOTIFICATIONS_READ,
+      });
     })
     .catch(err => console.log(err));
 };
